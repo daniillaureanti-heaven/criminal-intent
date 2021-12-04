@@ -16,10 +16,12 @@ import androidx.recyclerview.widget.LinearLayoutManager;
 import androidx.recyclerview.widget.RecyclerView;
 
 import java.util.List;
+import java.util.UUID;
 
 public class CrimeListFragment extends Fragment {
     private RecyclerView mCrimeRecyclerView;
     private CrimeAdapter mAdapter;
+    private int clickPosition;
 
     @Override
     public View onCreateView(LayoutInflater inflater, ViewGroup container,
@@ -39,8 +41,13 @@ public class CrimeListFragment extends Fragment {
             mAdapter = new CrimeAdapter(crimes);
             mCrimeRecyclerView.setAdapter(mAdapter);
         } else {
-            mAdapter.notifyDataSetChanged();
-//            mAdapter.notifyItemChanged();
+            for (int i = 0; i < crimes.size(); i++) {//??????????
+                if (crimes.get(i).getId().equals(getClickPosition())) {
+                    mAdapter.notifyItemChanged(i);
+                    break;
+                }
+            }
+//            mAdapter.notifyDataSetChanged();
         }
 //        mCrimeRecyclerView.getAdapter().notifyItemMoved(0, 5);
     }
@@ -62,6 +69,7 @@ public class CrimeListFragment extends Fragment {
         @Override
         public void onBindViewHolder(@NonNull CrimeHolder holder, int position) {
             Crime crime = mCrimes.get(position);
+            setClickPosition(position);//????????????????????
             holder.bind(crime);
         }
 
@@ -95,9 +103,17 @@ public class CrimeListFragment extends Fragment {
 
         @Override
         public void onClick(View view) {
-            Intent intent = CrimePagerActivity.newIntent(getActivity(), mCrime. getId());
+            Intent intent = CrimePagerActivity.newIntent(getActivity(), mCrime.getId());
             startActivity(intent);
         }
+    }
+
+    public int getClickPosition() {
+        return clickPosition;
+    }
+
+    public void setClickPosition(int clickPosition) {
+        this.clickPosition = clickPosition;
     }
 
     @Override
