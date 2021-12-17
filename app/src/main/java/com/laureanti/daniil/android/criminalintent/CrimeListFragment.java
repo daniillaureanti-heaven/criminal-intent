@@ -92,8 +92,9 @@ public class CrimeListFragment extends Fragment {
 
     private void updateSubtitle() {
         CrimeLab crimeLab = CrimeLab.get(getActivity());
-        int crimeCount = crimeLab.getCrimes().size();
-        String subtitle = getString(R.string.subtitle_format, crimeCount);
+        int crimeSize = crimeLab.getCrimes().size();
+        String subtitle = getResources()
+                .getQuantityString(R.plurals.subtitle_plural, crimeSize, crimeSize);
 
         if (!mSubtitleVisible) {
             subtitle = null;
@@ -118,7 +119,6 @@ public class CrimeListFragment extends Fragment {
             }
 //            mAdapter.notifyDataSetChanged();
         }
-//        mCrimeRecyclerView.getAdapter().notifyItemMoved(0, 5);
         updateSubtitle();
     }
 
