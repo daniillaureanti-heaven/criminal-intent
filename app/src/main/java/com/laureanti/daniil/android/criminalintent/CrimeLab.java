@@ -4,6 +4,7 @@ import android.content.ContentValues;
 import android.content.Context;
 import android.database.Cursor;
 import android.database.sqlite.SQLiteDatabase;
+import android.widget.Toast;
 
 import com.laureanti.daniil.android.criminalintent.database.CrimeBaseHelper;
 import com.laureanti.daniil.android.criminalintent.database.CrimeCursorWrapper;
@@ -32,8 +33,15 @@ public class CrimeLab {
         return sCrimeLab;
     }
 
-    public void addCrime(Crime c) {
-        ContentValues values = getContentValues(c);
+    public void addCrime(Crime crime) {
+        ContentValues values = getContentValues(crime);
+//        String title = values.getAsString(crime.getTitle());
+//        if (title.equals("")){
+//
+//        } else {
+//            mDatabase.insert(CrimeDbSchema.CrimeTable.NAME, null, values);
+//
+//        }
         mDatabase.insert(CrimeDbSchema.CrimeTable.NAME, null, values);
     }
 
@@ -99,13 +107,13 @@ public class CrimeLab {
     }
 
     private static ContentValues getContentValues(Crime crime) {
-        ContentValues values = new ContentValues();
-        values.put(CrimeDbSchema.CrimeTable.Cols.UUID,
-                crime.getId().toString());
-        values.put(CrimeDbSchema.CrimeTable.Cols.TITLE, crime.getTitle());
-        values.put(CrimeDbSchema.CrimeTable.Cols.DATE, crime.getDate().getTime());
-        values.put(CrimeDbSchema.CrimeTable.Cols.SOLVED, crime.isSolved() ? 1 : 0);
-        return values;
+            ContentValues values = new ContentValues();
+            values.put(CrimeDbSchema.CrimeTable.Cols.UUID,
+                    crime.getId().toString());
+            values.put(CrimeDbSchema.CrimeTable.Cols.TITLE, crime.getTitle());
+            values.put(CrimeDbSchema.CrimeTable.Cols.DATE, crime.getDate().getTime());
+            values.put(CrimeDbSchema.CrimeTable.Cols.SOLVED, crime.getSolved() ? 1 : 0);
+            return values;
     }
 
 }

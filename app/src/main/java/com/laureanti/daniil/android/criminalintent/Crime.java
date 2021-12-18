@@ -9,7 +9,7 @@ public class Crime {
     private UUID mId;
     private String mTitle;
     private Date mDate;
-    private Boolean mSolved;
+    private Boolean mSolved = false;
 
 
     public Crime(){
@@ -55,7 +55,7 @@ public class Crime {
 
     public String getCurrentDate(){
         SimpleDateFormat formatter = new SimpleDateFormat("EEE, MMM d, yyyy");
-        Date currentData = new Date();
+        Date currentData = mDate;
         return formatter.format(currentData);
     }
 }

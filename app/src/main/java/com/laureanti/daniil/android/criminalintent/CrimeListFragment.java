@@ -112,13 +112,13 @@ public class CrimeListFragment extends Fragment {
             mCrimeRecyclerView.setAdapter(mAdapter);
         } else {
             mAdapter.setCrimes(crimes);
-            for (int i = 0; i < crimes.size(); i++) {//??????????
-                if (crimes.get(i).getId().equals(getClickPosition())) {
-                    mAdapter.notifyItemChanged(i);
-                    break;
-                }
-            }
-//            mAdapter.notifyDataSetChanged();
+//            for (int i = 0; i < crimes.size(); i++) {//сука не работает
+//                if (crimes.get(i).getId().equals(getClickPosition())) {
+//                    mAdapter.notifyItemChanged(i);
+//                    break;
+//                }
+//            }
+            mAdapter.notifyDataSetChanged();
         }
         updateSubtitle();
     }
@@ -173,7 +173,7 @@ public class CrimeListFragment extends Fragment {
             mCrime = crime;
             mTitleTextView.setText(mCrime.getTitle());
             mDateTextView.setText(mCrime.getCurrentDate());
-            mSolvedImageView.setVisibility(crime.isSolved() ? View.VISIBLE : View.GONE);
+            mSolvedImageView.setVisibility(mCrime.getSolved() ? View.VISIBLE : View.GONE);
         }
 
         @Override

@@ -17,8 +17,10 @@ import android.widget.CompoundButton;
 import android.widget.EditText;
 import android.widget.Toast;
 
+import androidx.activity.OnBackPressedCallback;
 import androidx.annotation.NonNull;
 import androidx.annotation.Nullable;
+import androidx.appcompat.app.ActionBar;
 import androidx.fragment.app.Fragment;
 import androidx.fragment.app.FragmentManager;
 
@@ -26,6 +28,7 @@ import java.util.Date;
 import java.util.UUID;
 
 public class CrimeFragment extends Fragment {
+
     private static final String ARG_CRIME_ID = "crime_id";
     private static final String DIALOG_DATE = "DialogDate";
     private static final int REQUEST_DATE = 0;
@@ -49,6 +52,16 @@ public class CrimeFragment extends Fragment {
         UUID crimeId = (UUID) getArguments().getSerializable(ARG_CRIME_ID);
         mCrime = CrimeLab.get(getActivity()).getCrime(crimeId);
         setHasOptionsMenu(true);
+
+//        OnBackPressedCallback callback = new OnBackPressedCallback(true /* enabled by default */) {
+//            @Override
+//            public void handleOnBackPressed() {
+//                Toast.makeText(getActivity(), "click back", Toast.LENGTH_SHORT).show();
+//                getActivity().finish();
+//            }
+//        };
+//        requireActivity().getOnBackPressedDispatcher().addCallback(this, callback);
+
     }
 
     @Override
@@ -112,7 +125,11 @@ public class CrimeFragment extends Fragment {
         });
 
         mSolvedCheckBox = (CheckBox) v.findViewById(R.id.crime_solved);
-        mSolvedCheckBox.setChecked(mCrime.isSolved());
+
+        if (mCrime.getSolved()){
+                    mSolvedCheckBox.setChecked(mCrime.isSolved());
+        }
+
         mSolvedCheckBox.setOnCheckedChangeListener(new CompoundButton.OnCheckedChangeListener() {
             @Override
             public void onCheckedChanged(CompoundButton buttonView, boolean isChecked) {
@@ -136,7 +153,8 @@ public class CrimeFragment extends Fragment {
     }
 
     private void updateDate() {
-        mDateButton.setText(mCrime.getDate().toString());
+//        mDateButton.setText(mCrime.getDate().toString());
+        mDateButton.setText(mCrime.getCurrentDate());
     }
 
     @Override
