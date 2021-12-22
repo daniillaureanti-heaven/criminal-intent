@@ -10,6 +10,7 @@ import com.laureanti.daniil.android.criminalintent.database.CrimeBaseHelper;
 import com.laureanti.daniil.android.criminalintent.database.CrimeCursorWrapper;
 import com.laureanti.daniil.android.criminalintent.database.CrimeDbSchema;
 
+import java.io.File;
 import java.util.ArrayList;
 import java.util.List;
 import java.util.UUID;
@@ -85,6 +86,14 @@ public class CrimeLab {
         }
     }
 
+    public File getPhotoFile(Crime crime) {
+        File filesDir = mContext.getFilesDir();
+        return new File(filesDir, crime.getPhotoFilename());
+//        if (externalFilesDir == null) {
+//        }
+    }
+
+
     public void updateCrime(Crime crime) {
         String uuidString = crime.getId().toString();
         ContentValues values = getContentValues(crime);
@@ -107,13 +116,14 @@ public class CrimeLab {
     }
 
     private static ContentValues getContentValues(Crime crime) {
-            ContentValues values = new ContentValues();
-            values.put(CrimeDbSchema.CrimeTable.Cols.UUID,
-                    crime.getId().toString());
-            values.put(CrimeDbSchema.CrimeTable.Cols.TITLE, crime.getTitle());
-            values.put(CrimeDbSchema.CrimeTable.Cols.DATE, crime.getDate().getTime());
-            values.put(CrimeDbSchema.CrimeTable.Cols.SOLVED, crime.getSolved() ? 1 : 0);
-            return values;
+        ContentValues values = new ContentValues();
+        values.put(CrimeDbSchema.CrimeTable.Cols.UUID,
+                crime.getId().toString());
+        values.put(CrimeDbSchema.CrimeTable.Cols.TITLE, crime.getTitle());
+        values.put(CrimeDbSchema.CrimeTable.Cols.DATE, crime.getDate().getTime());
+        values.put(CrimeDbSchema.CrimeTable.Cols.SOLVED, crime.getSolved() ? 1 : 0);
+        values.put(CrimeDbSchema.CrimeTable.Cols.SUSPECT, crime.getSuspect());
+        return values;
     }
 
 }
