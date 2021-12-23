@@ -36,20 +36,12 @@ public class CrimeLab {
 
     public void addCrime(Crime crime) {
         ContentValues values = getContentValues(crime);
-//        String title = values.getAsString(crime.getTitle());
-//        if (title.equals("")){
-//
-//        } else {
-//            mDatabase.insert(CrimeDbSchema.CrimeTable.NAME, null, values);
-//
-//        }
         mDatabase.insert(CrimeDbSchema.CrimeTable.NAME, null, values);
     }
 
     public void removeCrime(Crime crime) {
-//        mCrimes.remove(crime);
         String uuidString = crime.getId().toString();
-        ContentValues values = getContentValues(crime);
+//        ContentValues values = getContentValues(crime);
         mDatabase.delete(CrimeDbSchema.CrimeTable.NAME,
                 CrimeDbSchema.CrimeTable.Cols.UUID + " = ?",
                 new String[]{uuidString});
@@ -69,6 +61,25 @@ public class CrimeLab {
         }
         return crimes;
     }
+
+//    public List<Crime> getCrimes() {
+//        List<Crime> crimes = new ArrayList<>();
+//        CrimeCursorWrapper cursor = queryCrimes(null, null);
+//        try {
+//            cursor.moveToFirst();
+//            while (!cursor.isAfterLast()) {
+//                if (cursor.getCrime().getTitle() == null){
+//                    removeCrime(cursor.getCrime());
+//                } else {
+//                    crimes.add(cursor.getCrime());
+//                }
+//                cursor.moveToNext();
+//            }
+//        } finally {
+//            cursor.close();
+//        }
+//        return crimes;
+//    }
 
     public Crime getCrime(UUID id) {
         CrimeCursorWrapper cursor = queryCrimes(

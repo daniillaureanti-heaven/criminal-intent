@@ -15,6 +15,7 @@
         android:theme="@style/Theme.CriminalIntent">
         <activity
             android:name=".CrimeListActivity"
+            android:screenOrientation="portrait"
             android:exported="true">
             <intent-filter>
                 <action android:name="android.intent.action.MAIN" />
@@ -23,6 +24,7 @@
         </activity>
         <activity
             android:name=".CrimePagerActivity"
+            android:screenOrientation="portrait"
             android:parentActivityName=".CrimeListActivity"/>
         <provider
             android:name="androidx.core.content.FileProvider"

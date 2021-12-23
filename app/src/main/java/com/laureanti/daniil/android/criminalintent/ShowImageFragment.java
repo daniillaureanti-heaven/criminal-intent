@@ -37,7 +37,7 @@ public class ShowImageFragment extends DialogFragment {
 
         File photoFile = (File) getArguments().getSerializable(ARG_IMAGE);
         if (photoFile == null || !photoFile.exists()) {
-            photoView.setImageDrawable(null);
+            photoView.setImageResource(R.drawable.noimage);
         } else {
             Bitmap bitmap = PictureUtils.getScaledBitmap(photoFile.getPath(), getActivity());
             photoView.setImageBitmap(bitmap);

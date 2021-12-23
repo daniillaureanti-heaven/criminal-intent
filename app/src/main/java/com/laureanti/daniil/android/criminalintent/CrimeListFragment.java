@@ -104,23 +104,33 @@ public class CrimeListFragment extends Fragment {
         activity.getSupportActionBar().setSubtitle(subtitle);
     }
 
-    private void updateUI() {
+    public void updateUI() {
         CrimeLab crimeLab = CrimeLab.get(getActivity());
         List<Crime> crimes = crimeLab.getCrimes();
+
+        deleteEmptyEntry(crimes, crimeLab);
+
         if (mAdapter == null) {
             mAdapter = new CrimeAdapter(crimes);
             mCrimeRecyclerView.setAdapter(mAdapter);
         } else {
             mAdapter.setCrimes(crimes);
-//            for (int i = 0; i < crimes.size(); i++) {//сука не работает
-//                if (crimes.get(i).getId().equals(getClickPosition())) {
-//                    mAdapter.notifyItemChanged(i);
-//                    break;
-//                }
-//            }
             mAdapter.notifyDataSetChanged();
         }
         updateSubtitle();
+    }
+
+    private void deleteEmptyEntry(List<Crime> crimes, CrimeLab crimeLab){
+        for (int i = 0; i < crimes.size(); i++) {
+            if (crimes.get(i).getTitle() == null){
+                crimeLab.removeCrime(crimes.get(i));
+                toastEmptyEntryDeleted();
+            }
+        }
+    }
+
+    private void toastEmptyEntryDeleted(){
+        Toast.makeText(getActivity(), "Empty note discarded", Toast.LENGTH_SHORT).show();
     }
 
     private class CrimeAdapter extends RecyclerView.Adapter<CrimeHolder> {
