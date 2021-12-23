@@ -62,25 +62,6 @@ public class CrimeLab {
         return crimes;
     }
 
-//    public List<Crime> getCrimes() {
-//        List<Crime> crimes = new ArrayList<>();
-//        CrimeCursorWrapper cursor = queryCrimes(null, null);
-//        try {
-//            cursor.moveToFirst();
-//            while (!cursor.isAfterLast()) {
-//                if (cursor.getCrime().getTitle() == null){
-//                    removeCrime(cursor.getCrime());
-//                } else {
-//                    crimes.add(cursor.getCrime());
-//                }
-//                cursor.moveToNext();
-//            }
-//        } finally {
-//            cursor.close();
-//        }
-//        return crimes;
-//    }
-
     public Crime getCrime(UUID id) {
         CrimeCursorWrapper cursor = queryCrimes(
                 CrimeDbSchema.CrimeTable.Cols.UUID + " = ?",
@@ -100,8 +81,6 @@ public class CrimeLab {
     public File getPhotoFile(Crime crime) {
         File filesDir = mContext.getFilesDir();
         return new File(filesDir, crime.getPhotoFilename());
-//        if (externalFilesDir == null) {
-//        }
     }
 
 
@@ -134,6 +113,7 @@ public class CrimeLab {
         values.put(CrimeDbSchema.CrimeTable.Cols.DATE, crime.getDate().getTime());
         values.put(CrimeDbSchema.CrimeTable.Cols.SOLVED, crime.getSolved() ? 1 : 0);
         values.put(CrimeDbSchema.CrimeTable.Cols.SUSPECT, crime.getSuspect());
+        values.put(CrimeDbSchema.CrimeTable.Cols.PHOTOGRAPHED, crime.getPhotographed() ? 1 : 0);
         return values;
     }
 

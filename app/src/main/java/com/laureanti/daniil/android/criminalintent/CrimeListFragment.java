@@ -120,9 +120,19 @@ public class CrimeListFragment extends Fragment {
         updateSubtitle();
     }
 
+//    private void deleteEmptyEntry(List<Crime> crimes, CrimeLab crimeLab){
+//        for (int i = 0; i < crimes.size(); i++) {
+//            if (crimes.get(i).getTitle() == null){
+//                crimeLab.removeCrime(crimes.get(i));
+//                toastEmptyEntryDeleted();
+//            }
+//        }
+//    }
+
     private void deleteEmptyEntry(List<Crime> crimes, CrimeLab crimeLab){
         for (int i = 0; i < crimes.size(); i++) {
-            if (crimes.get(i).getTitle() == null){
+            int photographed = crimes.get(i).getPhotographed() ? 1 : 0;
+            if (crimes.get(i).getTitle() == null && photographed == 0){
                 crimeLab.removeCrime(crimes.get(i));
                 toastEmptyEntryDeleted();
             }

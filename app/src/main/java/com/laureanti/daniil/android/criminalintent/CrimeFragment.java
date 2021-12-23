@@ -298,6 +298,14 @@ public class CrimeFragment extends Fragment {
         } else {
             Bitmap bitmap = PictureUtils.getScaledBitmap( mPhotoFile.getPath(), getActivity());
             mPhotoView.setImageBitmap(bitmap);
+            mCrime.isPhotographed();
+            checkAndInsertTextIfThereIsOnlyPhoto(mCrime);
+        }
+    }
+
+    private void checkAndInsertTextIfThereIsOnlyPhoto(Crime crime){
+        if (crime.getTitle() == null){
+            mCrime.setTitle("Photo only added");
         }
     }
 

@@ -10,8 +10,8 @@ public class Crime {
     private String mTitle;
     private Date mDate;
     private Boolean mSolved = false;
-
     private String mSuspect;
+    private Boolean mPhotographed = false;
 
 
     public Crime(){
@@ -43,6 +43,10 @@ public class Crime {
         this.mSolved = mSolved;
     }
 
+    public boolean isSolved(){
+        return true;
+    }
+
     public String getTitle() {
         return mTitle;
     }
@@ -56,15 +60,26 @@ public class Crime {
     }
 
     public void setSuspect(String suspect) {
-        mSuspect = suspect; }
+        mSuspect = suspect;
+    }
+
+    public Boolean getPhotographed() {
+        return mPhotographed;
+    }
+
+    public boolean isPhotographed(){
+        return true;
+    }
+
+    public void setPhotographed(Boolean mPhotographed) {
+        this.mPhotographed = mPhotographed;
+    }
 
     public String getPhotoFilename() {
         return "IMG_" + getId().toString() + ".jpg";
     }
 
-    public boolean isSolved(){
-        return true;
-    }
+
 
     public String getCurrentDate(){
         SimpleDateFormat formatter = new SimpleDateFormat("EEE, MMM d, yyyy");
