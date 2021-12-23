@@ -16,6 +16,7 @@ import java.util.List;
 import java.util.UUID;
 
 public class CrimePagerActivity extends AppCompatActivity {
+    private FragmentManager fragmentManager;
     private static final String EXTRA_CRIME_ID =
             "com.laureanti.daniil.android.criminalintent.crime_id";
 
@@ -36,9 +37,10 @@ public class CrimePagerActivity extends AppCompatActivity {
         UUID crimeId = (UUID) getIntent().getSerializableExtra(EXTRA_CRIME_ID);
 
         mViewPager = (ViewPager) findViewById(R.id.crime_view_pager);
+        mViewPager.setPageTransformer(true, new ZoomOutPageTransformer());
 
         mCrimes = CrimeLab.get(this).getCrimes();
-        FragmentManager fragmentManager = getSupportFragmentManager();
+        fragmentManager = getSupportFragmentManager();
         mViewPager.setAdapter(new FragmentStatePagerAdapter(fragmentManager) {
             @NonNull
             @Override
@@ -52,5 +54,19 @@ public class CrimePagerActivity extends AppCompatActivity {
                 return mCrimes.size();
             }
         });
+
+        for (int i = 0; i < mCrimes.size(); i++) {
+            if (mCrimes.get(i).getId().equals(crimeId)) {
+                mViewPager.setCurrentItem(i);
+                break;
+            }
+        }
     }
+
+    public void onBackPressed() {
+        Intent intent = new Intent(this, CrimeListActivity.class);
+        startActivity(intent);
+        finish();
+    }
+
 }
